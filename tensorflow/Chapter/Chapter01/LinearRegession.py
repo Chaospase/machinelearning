@@ -8,7 +8,7 @@ rng = np.random
 # 参数设定
 learning_rate = 0.01
 training_epochs = 10000
-display_step = 200
+display_step = 100
 
 # 训练数据
 train_X = np.asarray([3.3, 4.4, 5.5, 6.71, 6.93, 4.168, 9.779, 6.182, 7.59, 2.167,
@@ -55,9 +55,15 @@ with tf.Session() as sess:
             print("Epoch:", '%4d' % (epoch + 1), " cost:", '{:.9f}'.format(epoch_cost),
                   " Weight:", sess.run(W), " Bias:", sess.run(B))
 
+        # if (epoch + 1) % 1000 == 0:
+        #     plt.plot(train_X, train_Y, 'ro', label="Original Data")
+        #     plt.plot(train_X, sess.run(pred, feed_dict={X: train_X}), label="Fitter line")
+        #     plt.legend()
+        #     plt.show()
+
     print("Optimization Finished!")
     train_cost = sess.run(cost, feed_dict={X: train_X, Y: train_Y, n_samples: train_X.shape[0]})
-    print("Train cost:", ':.9f'.format(train_cost), " Weight:", sess.run(W), " Bias:", sess.run(B))
+    print("Train cost:", '{:.9f}'.format(train_cost), " Weight:", sess.run(W), " Bias:", sess.run(B))
 
     # 作图
     plt.plot(train_X, train_Y, 'ro', label="Original Data")
@@ -71,7 +77,7 @@ with tf.Session() as sess:
 
     print("Optimization Finished!")
     test_cost = sess.run(cost, feed_dict={X: test_X, Y: test_Y, n_samples: test_X.shape[0]})
-    print("Test cost:", ':.9f'.format(test_cost), " Weight:", sess.run(W), " Bias:", sess.run(B))
+    print("Test cost:", '{:.9f}'.format(test_cost), " Weight:", sess.run(W), " Bias:", sess.run(B))
 
     # 作图
     plt.plot(test_X, test_Y, 'bo', label="Test Data")
